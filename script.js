@@ -1,3 +1,4 @@
+var timer = document.getElementById("timer")
 var matrix = [];
 var side = 60;
 var n = 30;
@@ -103,3 +104,10 @@ function draw() {
     }, 50000);
     
 }
+let id = setInterval(() => {
+    if(+timer.innerHTML <= 0){
+        clearInterval(id2)
+        timer.innerHTML = 0
+    }
+    timer.innerHTML = timer.innerHTML - 1;
+},1000)
