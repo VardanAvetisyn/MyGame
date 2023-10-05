@@ -1,4 +1,5 @@
-var timer = document.getElementById("timer")
+var timer = document.getElementById("timer");
+var audio = document.getElementById("audio")
 var matrix = [];
 var side = 30;
 var n = 15;
@@ -26,8 +27,8 @@ var BombNew  = []
 
 function setup() {
     characters(1,200)
-    characters(2,50)
-    characters(3,50)
+    characters(2,150)
+    characters(3,20)
     characters(4,200)
     characters(5,1)
     frameRate(10);
@@ -106,6 +107,7 @@ function draw() {
 }
 let id = setInterval(() => {
     if(+timer.innerHTML <= 0){
+        audio.play();
         clearInterval(id2)
         timer.innerHTML = 0
     }
