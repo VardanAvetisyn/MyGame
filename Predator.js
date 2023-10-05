@@ -2,7 +2,7 @@ class Predator {
     constructor(x, y, index) {
         this.x = x;
         this.y = y;
-        this.energy = 8;
+        this.energy = 1;
         this.index = index;
         this.directions = [];
     }
@@ -34,7 +34,7 @@ class Predator {
         return found;
     }
     mul() {
-        var newCell = random(this.chooseCell(2));//[5,4]
+        var newCell = random(this.chooseCell(2));
         if (newCell) {
             var newPredator = new Predator(newCell[0], newCell[1], this.index);
             PredatorArr.push(newPredator);
@@ -64,9 +64,6 @@ class Predator {
                 this.mul()
             }
         }
-        // else {
-        //     this.move()
-        // }
     }
 
     eat() {
@@ -86,7 +83,7 @@ class Predator {
                     break;
                 }
             }
-            if (this.energy >= 20) {
+            if (this.energy >= 100) {
                 this.mul()
             }
         }

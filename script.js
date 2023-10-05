@@ -1,8 +1,8 @@
 var timer = document.getElementById("timer")
 var matrix = [];
-var side = 60;
-var n = 30;
-var m = 30;
+var side = 30;
+var n = 15;
+var m = 15;
 
 for (let i = 0; i <n; i++) {
 matrix.push([])
@@ -101,7 +101,7 @@ function draw() {
     }
     setInterval( ()=> {
             BombNew.eat()  
-    }, 50000);
+    }, 30000);
     
 }
 let id = setInterval(() => {

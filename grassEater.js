@@ -2,7 +2,7 @@ class GrassEater {
     constructor(x, y, index) {
         this.x = x;
         this.y = y;
-        this.energy = 8;
+        this.energy = 20;
         this.index = index;
         this.directions = [];
     }
@@ -34,7 +34,7 @@ class GrassEater {
         return found;
     }
     mul() {
-        var newCell = random(this.chooseCell(1));//[5,4]
+        var newCell = random(this.chooseCell(1));
         if (newCell) {
             var newGrassEater = new GrassEater(newCell[0], newCell[1], this.index);
             GrassEaterArr.push(newGrassEater);
@@ -60,7 +60,7 @@ class GrassEater {
                     break;
                 }
             }
-            if (this.energy >= 20) {
+            if (this.energy >= 5) {
                 this.mul()
             }
         }
