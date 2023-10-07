@@ -1,5 +1,4 @@
 var timer = document.getElementById("timer");
-var audio = document.getElementById("audio");
 var matrix = [];
 var side = 30;
 var n = 15;
@@ -94,14 +93,15 @@ function draw() {
     }
     setInterval(() => {
         BombNew.eat();
-    }, 30000);
+    }, 5000);
 }
 
 let id = setInterval(() => {
-    if (+timer.innerHTML <= 0) {
+    if (+timer.innerHTML <= 1) {
         clearInterval(id2);
-        timer.innerHTML = 0;
-        playAudio()
+        if(BombNew.eat() == true){
+            timer.innerHTML = 0;
+        }
     }
     timer.innerHTML = timer.innerHTML - 1;
 }, 1000);
