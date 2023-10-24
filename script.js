@@ -1,6 +1,29 @@
 var side = 30;
 var sideX = 15;
 var sideY = 15;
+const socket = io();
+var timer = document.getElementById("timer");
+let pause = document.getElementById("pause")
+console.log(pause);
+let isPause = false;
+let restart = document.getElementById("restart")
+pause.addEventListener("click", () => {
+  
+    
+  isPause= !isPause
+    if(isPause){
+        console.log('p')
+        pause.innerHTML="start";
+    }else {
+        pause.innerHTML="pause";
+    }
+    socket.emit("Pause Game",isPause);
+})
+
+restart.addEventListener("click",() => {
+    timer.innerHTML = 5;
+    socket.emit("restart game")
+})
 
 
 function setup() {
@@ -8,7 +31,9 @@ function setup() {
     background('#acacac');
 }
 
-function draw(matrix) {
+
+
+function drawMatrix(matrix) {
     
     for (var y = 0; y < sideY; y++) {
         for (var x = 0; x < sideX; x++) {
@@ -32,16 +57,21 @@ function draw(matrix) {
 
 }
 
-// let id = setInterval(() => {
-//     if (+timer.innerHTML <= 1) {
-//         clearInterval(id2);
-//         if(BombNew.eat() == true){
-//             timer.innerHTML = 0;
-//         }
-//     }
-//     timer.innerHTML = timer.innerHTML - 1;
-// }, 1000);
+let id = setInterval(() => {
+    if (+timer.innerHTML <= 1) {
+        clearInterval(id2);
+        if(BombNew.eat() == true){
+            timer.innerHTML = 0;
+        }
+    }
+    timer.innerHTML = timer.innerHTML - 1;
+}, 1000);
 
-// id2 = id;
+id2 = id;
 
-io().on("update matrix",draw)
+socket.on("update matrix", drawMatrix)
+socket.on("apdate statistic", (obj) => {
+    document.getElementById("grass").innerText="Number of created grasses: " + obj.grass
+    document.getElementById("grassEater").innerText = "Number of created grass eaters: " + obj.GrassEater
+    document.getElementById("predator").innerHTML = "Number of created predator: " + obj.Predator;
+})

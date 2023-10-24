@@ -3,8 +3,9 @@ const app = express()
 const http = require('http')
 const server = http.createServer(app)
 const io = require("socket.io")(server)
+module.exports = io
 
-// var timer = document.getElementById("timer");
+
 var sideX = 15;
 var sideY = 15;
 var id2;
@@ -38,12 +39,18 @@ function random(min, max) {
     return Math.random() * (max - min) + min;
 }
 
+statisticObj = {
+    grass:0,
+    GrassEater:0,
+    Predator:0
+}
+
 function character(quantity, char) {
     let initialNumber = 0;
     while (initialNumber < quantity) {
         let x = Math.floor(random(0, sideX));
         let y = Math.floor(random(0, sideY));
-        if (matrix[y][x] == 0) {
+        if (matrix[y][x] == 0 || matrix[y][x] == 1) {
             matrix[y][x] = char;
         }
         initialNumber++;
@@ -70,7 +77,7 @@ function initGame() {
     startInterval();
     initArrays()
     console.log("hgfgfd");
-    
+
 }
 
 function initArrays() {
@@ -99,17 +106,17 @@ function initArrays() {
         }
     }
     console.log(matrix);
-    
+
 }
 let intName
-function startInterval(){
+function startInterval() {
     clearInterval(intName)
     intName = setInterval(() => {
         playGame()
-    },300)
+    }, 300)
 }
 
-function playGame(){
+function playGame() {
     for (let i in grassArr) {
         grassArr[i].mul();
     }
@@ -126,16 +133,27 @@ function playGame(){
     // setInterval(() => {
     //     BombNew.eat();
     // }, 5000);
-    io.emit("update matrix",matrix)
+    io.emit("update matrix", matrix)
 }
 
-io.on("conection", (socket) => {
-    console.log('kkkk');
-    
+io.on("connection", (socket) => {
+
     socket.emit("update matrix", matrix);
     initGame()
-})
+    socket.on("Pause Game", (isPause) => {
+        if (isPause) {
+            clearInterval(intName)
+        } else {
+            startInterval()
+        }
 
+    })
+    socket.on("restart game",hendleRastart)
+        
+})
+function hendleRastart(){
+    initGame()
+}
 server.listen(3000, () => {
     console.log('server in listening to port 3000');
 })

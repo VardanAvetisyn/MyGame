@@ -24,8 +24,8 @@ module.exports = class Prey extends Creature{
         return super.chooseCell(character);
     }
     eat() {
-        let foods = this.chooseCell(0)
-        let food = random(foods)
+        // let foods = this.chooseCell(0)
+        let food = this.selectRandomCell(0)
         if (food) {
             this.energy++;
             matrix[this.y][this.x] = 0
@@ -38,8 +38,8 @@ module.exports = class Prey extends Creature{
     }
     move() {
         this.energy--;
-        let emptyCells = this.chooseCell(0)
-        let newCell = random(emptyCells)
+        // let emptyCells = this.chooseCell(0)
+        let newCell = this.selectRandomCell(0)
         if (newCell) {
             let newX = newCell[0]
             let newY = newCell[1]
