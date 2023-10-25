@@ -8,7 +8,6 @@ module.exports = io
 
 var sideX = 15;
 var sideY = 15;
-var id2;
 
 matrix = [];
 grassArr = [];
@@ -130,14 +129,21 @@ function playGame() {
     for (let i in PreyArr) {
         PreyArr[i].eat();
     }
-    // setInterval(() => {
-    //     BombNew.eat();
-    // }, 5000);
+
     io.emit("update matrix", matrix)
+        io.on("id",() => {
+            if(id == 0){
+                return BombNew.eat();
+            }
+        })
+        // setTimeout(() => {
+        //     BombNew.eat();
+        // }, 5000);
+    
 }
 
 io.on("connection", (socket) => {
-
+    
     socket.emit("update matrix", matrix);
     initGame()
     socket.on("Pause Game", (isPause) => {

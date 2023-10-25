@@ -56,18 +56,24 @@ function drawMatrix(matrix) {
     }
 
 }
+let id2
 
-let id = setInterval(() => {
-    if (+timer.innerHTML <= 1) {
-        clearInterval(id2);
-        if(BombNew.eat() == true){
-            timer.innerHTML = 0;
+if (timer.innerHTML != null || timer.innerHTML == null) {
+    id = setInterval(() => {
+        if (+timer.innerHTML <= 0) {
+            io().emit("id", id);
+            timer.innerHTML = 5;
+            // clearInterval(id);
+        } else {
+            timer.innerHTML = timer.innerHTML - 1;
         }
-    }
-    timer.innerHTML = timer.innerHTML - 1;
-}, 1000);
+    }, 1000);
+}
 
 id2 = id;
+
+
+
 
 socket.on("update matrix", drawMatrix)
 socket.on("apdate statistic", (obj) => {
