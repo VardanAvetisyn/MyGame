@@ -62,8 +62,7 @@ if (timer.innerHTML != null || timer.innerHTML == null) {
     id = setInterval(() => {
         if (+timer.innerHTML <= 0) {
             io().emit("id", id);
-            timer.innerHTML = 5;
-            // clearInterval(id);
+            timer.innerHTML = 10;
         } else {
             timer.innerHTML = timer.innerHTML - 1;
         }
