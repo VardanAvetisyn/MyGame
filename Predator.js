@@ -37,7 +37,6 @@ module.exports = class Predator extends Creature{
     }
 
     meat() {
-        // let foods = this.chooseCell(4)
         let food = this.selectRandomCell(4)
         if (food) {
             this.energy+= 10;
@@ -60,8 +59,7 @@ module.exports = class Predator extends Creature{
     }
 
     eat() {
-        // let foods = this.chooseCell(2)
-        let food = this.selectRandomCell(2)//[2,3]
+        let food = this.selectRandomCell(2)
         if (food) {
             this.energy++;
             matrix[this.y][this.x] = 0
@@ -86,7 +84,6 @@ module.exports = class Predator extends Creature{
     }
     move() {
         this.energy--;
-        // let emptyCells = this.chooseCell(0)
         let newCell = this.selectRandomCell(0)
         if (newCell) {
             let newX = newCell[0]

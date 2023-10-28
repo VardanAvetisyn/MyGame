@@ -134,10 +134,6 @@ function playGame() {
                 return BombNew.eat();
             }
         })
-        // setTimeout(() => {
-        //     BombNew.eat();
-        // }, 5000);
-    
 }
 
 io.on("connection", (socket) => {

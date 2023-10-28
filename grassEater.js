@@ -36,7 +36,6 @@ module.exports = class GrassEater extends Creature{
     }
 
     eat() {
-        // let foods = this.chooseCell(1)
         let food = this.selectRandomCell(1)
         if (food) {
             this.energy++;
@@ -62,7 +61,6 @@ module.exports = class GrassEater extends Creature{
     }
     move() {
         this.energy--;
-        // let emptyCells = this.chooseCell(0)
         let newCell = this.selectRandomCell(0)
         if (newCell) {
             let newX = newCell[0]
