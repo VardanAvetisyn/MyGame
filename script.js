@@ -3,26 +3,42 @@ var sideX = 15;
 var sideY = 15;
 const socket = io();
 var timer = document.getElementById("timer");
-let pause = document.getElementById("pause")
-console.log(pause);
+let pause = document.getElementById("pause");
+let weather = document.getElementById("weather")
 let isPause = false;
-let restart = document.getElementById("restart")
+let restart = document.getElementById("restart");
 pause.addEventListener("click", () => {
   
     
-  isPause= !isPause
+  isPause= !isPause;
     if(isPause){
-        console.log('p')
         pause.innerHTML="start";
     }else {
         pause.innerHTML="pause";
     }
     socket.emit("Pause Game",isPause);
 })
-
+let isSpeed = 0;
+weather.addEventListener("click",() => {
+    if(isSpeed < 4){
+        isSpeed++;
+    }else{
+        isSpeed = 1;
+    }
+    socket.emit("isSpeed",isSpeed)
+    if(isSpeed == 1){
+        weather.textContent = "Winter"
+    } else if(isSpeed == 2){
+        weather.textContent = "Spring"
+    } else if(isSpeed == 3){
+        weather.textContent = "Summer"
+    } else if(isSpeed == 4){
+        weather.textContent = "Autumn"
+    }
+})
 restart.addEventListener("click",() => {
     timer.innerHTML = 5;
-    socket.emit("restart game")
+    socket.emit("restart game");
 })
 
 
@@ -34,11 +50,19 @@ function setup() {
 
 
 function drawMatrix(matrix) {
-    
     for (var y = 0; y < sideY; y++) {
         for (var x = 0; x < sideX; x++) {
             if (matrix[y][x] == 1) {
                 fill("green");
+                if(isSpeed == 1){
+                    fill("white")
+                }else if (isSpeed == 2){
+                    fill("pink")
+                }else if(isSpeed == 3){
+                    fill("brown")
+                }else{
+                    fill("green")
+                }
             } else if (matrix[y][x] == 0) {
                 fill("#acacac");
             } else if (matrix[y][x] == 2) {
@@ -62,7 +86,7 @@ if (timer.innerHTML != null || timer.innerHTML == null) {
     id = setInterval(() => {
         if (+timer.innerHTML <= 0) {
             io().emit("id", id);
-            timer.innerHTML = 10;
+            timer.innerHTML = 5;
         } else {
             timer.innerHTML = timer.innerHTML - 1;
         }

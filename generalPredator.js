@@ -1,6 +1,6 @@
 let Creature = require("./creature")
 const io = require("./server")
-module.exports = class Predator extends Creature{
+module.exports = class GeneralPredator extends Creature{
     constructor(x, y, index) {
         super(x,y,index)
         this.energy = 1;

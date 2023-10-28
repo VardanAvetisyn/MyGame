@@ -38,11 +38,7 @@ function random(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-statisticObj = {
-    grass:0,
-    GrassEater:0,
-    Predator:0
-}
+
 
 function character(quantity, char) {
     let initialNumber = 0;
@@ -68,6 +64,11 @@ for (let i = 0; i < sideY; i++) {
 
 
 function initGame() {
+    statisticObj = {
+        grass:0,
+        GrassEater:0,
+        Predator:0
+    }
     character(200, 1);
     character(150, 2);
     character(20, 3);
@@ -75,8 +76,6 @@ function initGame() {
     character(1, 5);
     startInterval();
     initArrays()
-    console.log("hgfgfd");
-
 }
 
 function initArrays() {
@@ -104,16 +103,15 @@ function initArrays() {
             }
         }
     }
-    console.log(matrix);
-
 }
 let intName
+let speed = 300;
 function startInterval() {
     clearInterval(intName)
-    intName = setInterval(() => {
-        playGame()
-    }, 300)
+ intName = setInterval(() => {playGame()},speed)
 }
+
+    
 
 function playGame() {
     for (let i in grassArr) {
@@ -155,8 +153,18 @@ io.on("connection", (socket) => {
 
     })
     socket.on("restart game",hendleRastart)
-        
+    socket.on("isSpeed",hendleChangeSeason)    
 })
+function hendleChangeSeason(isSpeed){
+    if(isSpeed == 1){
+        speed = 1000
+    }else if(isSpeed == 2 || isSpeed == 4){
+        speed = 700
+    }else {
+        speed = 300
+    }
+}
+
 function hendleRastart(){
     initGame()
 }
